@@ -1,0 +1,32 @@
+name: API CI
+# If i have a normal repository, will use this, but i'm using a monolithic repository. so a have to specify a repository
+# on: [push]
+on:
+  push:
+    paths:
+      - './api/**'
+      - '.githun/workflows/api-ci.yml'
+
+defaults:
+  run:
+    working-directory: ./api
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache: 'npm'
+          cache-dependency-path: ./api/package-lock.json
+      - name: Install
+        shell: bash
+        # Install dependencies on a continuous integration environment
+        run: npm ci
+      - name: run init test
+        shell: bash
+        run: npm run test
