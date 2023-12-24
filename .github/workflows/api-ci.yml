@@ -13,7 +13,7 @@ defaults:
 
 jobs:
   unit-test:
-    runs-on: ubuntu-test
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -30,3 +30,5 @@ jobs:
       - name: run init test
         shell: bash
         run: npm run test
+  # e2e:
+  #   runs-on: ubuntu-latest
